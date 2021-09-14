@@ -41,23 +41,45 @@ TEST_SUITE ("Example derived tests.") {
         if (!os_logger) {
             auto os_sink = std::make_shared<spdlog::sinks::ostream_sink_st>(oss);
             os_logger = std::make_shared<spdlog::logger>("test_logger", os_sink);
-            os_logger->set_pattern(">%v<");
+            os_logger->set_pattern("%v");
             os_logger->set_level(spdlog::level::debug);
         }
         spdlog::set_default_logger(os_logger);
 
-        SUBCASE("First.") {
+        SUBCASE("Welcome to spdlog.") {
             /* Example snippet:
              *
              * spdlog::info("Welcome to spdlog!");
              */
-            spdlog::info("Welcome to spdlog!");
+            auto payload = "Welcome to spdlog!;
+            spdlog::info(payload);
+            
             std::string test = oss.str();
             // check the derived class is constructed
                 INFO(">>>", test, "<<<");
-                REQUIRE(!test.empty());
+                CHECK(!test.empty());
+                REQUIRE(test.find(payload) != std::string::npos);
+                REQUIRE(test.find('\n') != std::string::npos);
             oss.str("");
         }
+
+        SUBCASE("Some error message with arg.") {
+            /* Example snippet:
+             *
+             * spdlog::error("Some error message with arg: {}", 1);
+             */
+            auto payload = "Some error message with arg: 1;
+            spdlog::error("Some error message with arg: {}", 1);
+            
+            std::string test = oss.str();
+            // check the derived class is constructed
+                INFO(">>>", test, "<<<");
+                CHECK(!test.empty());
+                REQUIRE(test.find(payload) != std::string::npos);
+                REQUIRE(test.find('\n') != std::string::npos);
+            oss.str("");
+        }
+
     }
 
     TEST_CASE ("Second test.") {
