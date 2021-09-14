@@ -127,6 +127,19 @@ TEST_SUITE ("Example derived tests.") {
             oss.str("");
         }
 
+        SUBCASE("Left aligned.") {
+            /* Example snippet:
+             *
+             * spdlog::info("{:<30}", "left aligned");
+             */
+            auto payload = "left aligned";
+            spdlog::info("{:<30}", "left aligned");
+            
+            std::string test = oss.str();
+                REQUIRE(test.find(payload) != std::string::npos);
+            oss.str("");
+        }
+
     }
 
     TEST_CASE ("Second test.") {
