@@ -97,10 +97,23 @@ TEST_SUITE ("Example derived tests.") {
             spdlog::critical("Support for int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42);
             
             std::string test = oss.str();
-                INFO(">>>", test, "<<<");
                 REQUIRE(test.find(payload) != std::string::npos);
             oss.str("");
         }
+
+        SUBCASE("Support for floats.") {
+            /* Example snippet:
+             *
+             * spdlog::info("Support for floats {:03.2f}", 1.23456);
+             */
+            auto payload = "Support for floats 1.23";
+            spdlog::info("Support for floats {:03.2f}", 1.23456);
+            
+            std::string test = oss.str();
+                REQUIRE(test.find(payload) != std::string::npos);
+            oss.str("");
+        }
+
     }
 
     TEST_CASE ("Second test.") {
