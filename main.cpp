@@ -140,6 +140,21 @@ TEST_SUITE ("Example derived tests.") {
             oss.str("");
         }
 
+        SUBCASE("This (debug) message should be displayed.") {
+            /* Example snippet:
+             *
+             * spdlog::set_level(spdlog::level::debug); // Set global log level to debug
+             * spdlog::debug("This message should be displayed..");  
+             */
+            auto payload = "This message should be displayed.";
+            spdlog::set_level(spdlog::level::debug); // Set global log level to debug
+            spdlog::debug("This message should be displayed..");  
+            
+            std::string test = oss.str();
+                REQUIRE(test.find(payload) != std::string::npos);
+            oss.str("");
+        }
+        
     }
 
     TEST_CASE ("Second test.") {
