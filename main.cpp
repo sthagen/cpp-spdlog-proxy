@@ -6,7 +6,8 @@
 
 #include <doctest/doctest.h>
 
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/ostream_sink.h>
 
 /*
 int main() 
@@ -34,25 +35,29 @@ int main()
 */
 
 TEST_SUITE ("Example derived tests.") {
-    std::ostringstream oss;
-    auto os_logger = spdlog::get("test_logger");
-    if (!os_logger) {
-        auto os_sink = std::make_shared<spdlog::sinks::ostream_sink_st>(oss);
-        os_logger = std::make_shared<spdlog::logger>("test_logger", os_sink);
-        os_logger->set_pattern(">%v<");
-        os_logger->set_level(spdlog::level::debug);
-    }
-    spdlog::set_default_logger(os_logger);
-    
     TEST_CASE ("First test.") {
-        /* Example snippet:
-         *
-         * spdlog::info("Welcome to spdlog!");
-         */
-        std::string test = oss.str();
-        // check the derived class is constructed
-        REQUIRE(test.find("Welcome to spdlog!") != std::string::npos);
-        oss.str("");
+        std::ostringstream oss;
+        auto os_logger = spdlog::get("test_logger");
+        if (!os_logger) {
+            auto os_sink = std::make_shared<spdlog::sinks::ostream_sink_st>(oss);
+            os_logger = std::make_shared<spdlog::logger>("test_logger", os_sink);
+            os_logger->set_pattern(">%v<");
+            os_logger->set_level(spdlog::level::debug);
+        }
+        spdlog::set_default_logger(os_logger);
+
+        SUBCASE("First.") {
+            /* Example snippet:
+             *
+             * spdlog::info("Welcome to spdlog!");
+             */
+            spdlog::info("Welcome to spdlog!");
+            std::string test = oss.str();
+            // check the derived class is constructed
+                INFO(">>>", test, "<<<");
+                REQUIRE(!test.empty());
+            oss.str("");
+        }
     }
 
     TEST_CASE ("Second test.") {
