@@ -51,7 +51,7 @@ TEST_SUITE ("Example derived tests.") {
          */
         std::string test = oss.str();
         // check the derived class is constructed
-        EXPECT_TRUE(test.find("Welcome to spdlog!") != std::string::npos);
+        REQUIRE(test.find("Welcome to spdlog!") != std::string::npos);
         oss.str("");
     }
 
