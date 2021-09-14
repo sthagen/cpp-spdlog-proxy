@@ -114,6 +114,19 @@ TEST_SUITE ("Example derived tests.") {
             oss.str("");
         }
 
+        SUBCASE("Positional args are supported too.") {
+            /* Example snippet:
+             *
+             * spdlog::info("Positional args are {1} {0}..", "too", "supported");
+             */
+            auto payload = "Positional args are supported too..";
+            spdlog::info("Positional args are {1} {0}..", "too", "supported");
+            
+            std::string test = oss.str();
+                REQUIRE(test.find(payload) != std::string::npos);
+            oss.str("");
+        }
+
     }
 
     TEST_CASE ("Second test.") {
