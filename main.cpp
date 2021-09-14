@@ -55,10 +55,9 @@ TEST_SUITE ("Example derived tests.") {
             spdlog::info(payload);
             
             std::string test = oss.str();
-            // check the derived class is constructed
                 INFO(">>>", test, "<<<");
                 CHECK(!test.empty());
-                REQUIRE(test.find(payload) != std::string::npos);
+                CHECK(test.find(payload) != std::string::npos);
                 REQUIRE(test.find('\n') != std::string::npos);
             oss.str("");
         }
@@ -72,11 +71,20 @@ TEST_SUITE ("Example derived tests.") {
             spdlog::error("Some error message with arg: {}", 1);
             
             std::string test = oss.str();
-            // check the derived class is constructed
-                INFO(">>>", test, "<<<");
-                CHECK(!test.empty());
                 REQUIRE(test.find(payload) != std::string::npos);
-                REQUIRE(test.find('\n') != std::string::npos);
+            oss.str("");
+        }
+
+        SUBCASE("Easy padding in numbers like.") {
+            /* Example snippet:
+             *
+             * spdlog::warn("Easy padding in numbers like {:08d}", 12);
+             */
+            auto payload = "Easy padding in numbers like 00000012";
+            spdlog::warn("Easy padding in numbers like {:08d}", 12);
+            
+            std::string test = oss.str();
+                REQUIRE(test.find(payload) != std::string::npos);
             oss.str("");
         }
 
