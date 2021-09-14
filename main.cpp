@@ -51,7 +51,7 @@ TEST_SUITE ("Example derived tests.") {
              *
              * spdlog::info("Welcome to spdlog!");
              */
-            auto payload = "Welcome to spdlog!;
+            auto payload = "Welcome to spdlog!";
             spdlog::info(payload);
             
             std::string test = oss.str();
@@ -68,7 +68,7 @@ TEST_SUITE ("Example derived tests.") {
              *
              * spdlog::error("Some error message with arg: {}", 1);
              */
-            auto payload = "Some error message with arg: 1;
+            auto payload = "Some error message with arg: 1";
             spdlog::error("Some error message with arg: {}", 1);
             
             std::string test = oss.str();
