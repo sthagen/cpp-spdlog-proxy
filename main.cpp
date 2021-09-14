@@ -34,13 +34,25 @@ int main()
 */
 
 TEST_SUITE ("Example derived tests.") {
+    std::ostringstream oss;
+    auto os_logger = spdlog::get("test_logger");
+    if (!os_logger) {
+        auto os_sink = std::make_shared<spdlog::sinks::ostream_sink_st>(oss);
+        os_logger = std::make_shared<spdlog::logger>("test_logger", os_sink);
+        os_logger->set_pattern(">%v<");
+        os_logger->set_level(spdlog::level::debug);
+    }
+    spdlog::set_default_logger(os_logger);
+    
     TEST_CASE ("First test.") {
         /* Example snippet:
          *
-         * // example code
+         * spdlog::info("Welcome to spdlog!");
          */
-        const auto result = 42;
-        REQUIRE(result == 42);
+        std::string test = oss.str();
+        // check the derived class is constructed
+        EXPECT_TRUE(test.find("Welcome to spdlog!") != std::string::npos);
+        oss.str("");
     }
 
     TEST_CASE ("Second test.") {
