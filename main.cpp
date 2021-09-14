@@ -93,7 +93,7 @@ TEST_SUITE ("Example derived tests.") {
              *
              * spdlog::critical("Support for int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42);
              */
-            auto payload = "Support for int: 42;  hex: 0x2a;  oct: 0o52; bin: 0b101010";
+            auto payload = "Support for int: 42;  hex: 2a;  oct: 52; bin: 101010";
             spdlog::critical("Support for int: {0:d};  hex: {0:x};  oct: {0:o}; bin: {0:b}", 42);
             
             std::string test = oss.str();
