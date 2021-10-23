@@ -23,13 +23,13 @@ include(${CPM_DOWNLOAD_LOCATION})
 
 CPMAddPackage(
     NAME spdlog
-    GITHUB_REPOSITORY sthagen/spdlog
+    GITHUB_REPOSITORY sthagen/gabime-spdlog
     GIT_TAG v1.3.1
 )
 
 CPMAddPackage(
   NAME doctest
-  GITHUB_REPOSITORY sthagen/doctest
+  GITHUB_REPOSITORY sthagen/onqtam-doctest
   GIT_TAG 2020.12
 )
 
